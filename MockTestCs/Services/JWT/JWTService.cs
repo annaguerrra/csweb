@@ -5,7 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using MockTestCs.Services.JWT;
 using MockTestCs.Services.Login;
 
-namespace MockTestCs.Service.JWT;
+namespace MockTestCs.Services.JWT;
 
 public class JWTService : IJWTService
 {
