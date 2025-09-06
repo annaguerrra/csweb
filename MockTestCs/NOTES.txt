@@ -1,0 +1,24 @@
+TO - DO LIST
+
+1. Entities
+    [V] Entities
+    [V] DbContext
+2. Migrations
+    [] SQL_Connection
+3. Features
+    [] Use Cases
+        [] Login and Authentication
+        [] Fanfic Register
+        [] Delete Fanfic
+        [] Edit existent list
+        [] Add Fanfic to list
+        [] Delete fanfic from list
+        [] Search a list by title (return title, modification date, fanfics contained and author name)
+    [] Payloads
+    [] Response
+4. Validation
+    [] Text size
+4. Endpoints
+
+
+    
