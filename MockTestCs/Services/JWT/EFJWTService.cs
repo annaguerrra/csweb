@@ -5,7 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace MockTestCs.Services.JWT;
 
-public class JWTService : IJWTService
+public class EFJWTService : IJWTService
 {
     public string CreateToken(UserToLoginDto data)
     {

@@ -21,7 +21,7 @@ public class LoginUseCase(
         if (!passwordMatch || user is null)
             return Result<LoginResponse>.Fail("User not found");
 
-        var jwtService = new JWTService();
+        var jwtService = new EFJWTService();
         var token = jwtService.CreateToken(new UserToLoginDto(
             user.ID, user.Username
             )
