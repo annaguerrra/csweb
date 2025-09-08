@@ -10,6 +10,8 @@ builder.Services.AddDbContext<MockTestCsDbContext>(
 
 var app = builder.Build();
 
+// transient ->> CreateUser , AddHistory , CreateList 
+
 
 app.Run();
  
