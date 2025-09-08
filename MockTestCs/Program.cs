@@ -23,13 +23,13 @@ builder.Services.AddDbContext<MockTestCsDbContext>(
 
 // Use cases: Scoped (Mexem com DbContext): AddHistory, AddToList, CreateUserUseCase, DeleteFromList, DeleteHistory, Login, CreateList
 
-builder.Services.AddScoped<AddHistoryUseCase>();
-builder.Services.AddScoped<AddToListUseCase>();
-builder.Services.AddScoped<CreateUserUseCase>();
-builder.Services.AddScoped<CreateListUseCase>();
-builder.Services.AddScoped<DeleteFromListUseCase>();
-builder.Services.AddScoped<DeleteHistoryUseCase>();
-builder.Services.AddScoped<LoginUseCase>();
+builder.Services.AddScoped<AddHistoryUseCase>();     // history enpoint
+builder.Services.AddScoped<AddToListUseCase>();      // list endpoint
+builder.Services.AddScoped<CreateUserUseCase>();     // user endpoint
+builder.Services.AddScoped<CreateListUseCase>();     // list endpoint
+builder.Services.AddScoped<DeleteFromListUseCase>(); // list endpoint
+builder.Services.AddScoped<DeleteHistoryUseCase>();  // history endpoint
+builder.Services.AddScoped<LoginUseCase>();          // login endpoint
 
 // Serviços: Singleton (mas poderiam ser transient) não armazenam estado interno entre chamadas, só recebem e transformam dados
 
