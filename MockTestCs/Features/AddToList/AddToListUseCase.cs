@@ -9,7 +9,8 @@ public class AddToListUseCase(
 {
     public async Task<Result<AddToListResponse>> Do(AddToListPayload payload)
     {
-        var list = await ctx.ReadingLists.FindAsync(payload.ReadingListID);
+        var list = await ctx.ReadingLists.FirstOrDefaultAsync(r => r.ID == payload.ReadingListID 
+                && r.UserID == payload.UserID);
         
          if (list is null)
             return Result<AddToListResponse>.Fail("Reading List not found");
@@ -19,10 +20,7 @@ public class AddToListUseCase(
         if (history is null)
             return Result<AddToListResponse>.Fail("History not found");
 
-        var exist = await ctx.ReadingListHistorys
-            .AnyAsync(r => r.HistoryID == payload.HistoryID && r.ReadingListID == payload.ReadingListID);
-        
-        if(exist)
+        if(list.Histories.Any(h => h.Id == payload.HistoryID))
             return Result<AddToListResponse>.Fail("The list already contains this history");
 
         list.Histories.Add(history);

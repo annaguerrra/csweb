@@ -9,7 +9,8 @@ public class DeleteFromListUseCase(
 {
     public async Task<Result<DeleteFromListResponse>> Do(DeleteFromListPayload payload)
     {
-        var list = await ctx.ReadingLists.FindAsync(payload.ReadingListID);
+        var list = await ctx.ReadingLists.FirstOrDefaultAsync(r => r.ID == payload.ReadingListID
+            && r.UserID == payload.UserID);
 
         if (list is null)
             return Result<DeleteFromListResponse>.Fail("Reading List not found");
@@ -19,10 +20,7 @@ public class DeleteFromListUseCase(
         if (history is null)
             return Result<DeleteFromListResponse>.Fail("History not found");
 
-        var exist = await ctx.ReadingListHistorys
-            .AnyAsync(r => r.HistoryID == payload.HistoryID && r.ReadingListID == payload.ReadingListID);
-
-        if (!exist)
+        if(!list.Histories.Any(h => h.Id == payload.HistoryID))
             return Result<DeleteFromListResponse>.Fail("The list does not contain this history");
 
         list.Histories.Remove(history);
