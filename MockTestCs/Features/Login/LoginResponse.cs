@@ -1,3 +1,5 @@
 namespace MockTestCs.Features.Login;
 
-public record LoginResponse;
+public record LoginResponse(
+    string Token
+);
