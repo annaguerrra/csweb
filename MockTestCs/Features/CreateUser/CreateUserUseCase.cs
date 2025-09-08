@@ -15,7 +15,7 @@ public class CreateUserUseCase(
             .AnyAsync(u => u.Username == payload.Username || u.Email == payload.Email);
 
         if (exist)
-            return Result<CreateUserResponse>.Fail("This login is already in use");
+            return Result<CreateUserResponse>.Fail("This login is already in use. If you already have an account, sign in");
         
         var user = new User{
             Username = payload.Username,
