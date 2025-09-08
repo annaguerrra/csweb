@@ -30,6 +30,10 @@ public static class HistoryEndPoints
             [FromServices] DeleteHistoryUseCase useCase) =>
             {
                 var claim = http.User.FindFirst(ClaimTypes.NameIdentifier);
+                
+                if (claim is null)
+                    return Results.BadRequest("User not found");
+                    
                 var userID = Guid.Parse(claim.Value);
                 var historyID = Guid.Parse(id);
 
