@@ -21,6 +21,7 @@ public class AddHistoryUseCase(
 
         ctx.Histories.Add(history);
         await ctx.SaveChangesAsync();
+        
         return Result<AddHistoryResponse>.Success(
             new AddHistoryResponse(
                 history.Id,
