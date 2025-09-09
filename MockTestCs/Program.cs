@@ -45,7 +45,7 @@ var key = new SymmetricSecurityKey(keyBytes);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
-    {
+    {// dhcsdfcirlfiuwhelvlfhlhl
         options.TokenValidationParameters = new()
         {
             ValidateIssuer = false,
