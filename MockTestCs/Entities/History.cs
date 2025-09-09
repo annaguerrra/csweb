@@ -9,6 +9,6 @@ public class History
     public Guid UserID { get; set; }
     public User User { get; set; }
 
-    public ICollection<ReadingList>? ReadingLists {get; set;}
-    public ICollection<ReadingListHistory>? ReadingListHistories {get; set;}
+    public ICollection<ReadingList> ReadingLists {get; set;}
+    public ICollection<ReadingListHistory> ReadingListHistories {get; set;}
   }
