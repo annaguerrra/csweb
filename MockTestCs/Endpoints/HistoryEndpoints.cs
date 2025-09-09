@@ -2,6 +2,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using MockTestCs.Features.AddHistory;
 using MockTestCs.Features.DeleteHistory;
+using MockTestCs.Features.ShowHistory;
 
 namespace MockTestCs.Endpoints;
 
@@ -30,10 +31,10 @@ public static class HistoryEndPoints
             [FromServices] DeleteHistoryUseCase useCase) =>
             {
                 var claim = http.User.FindFirst(ClaimTypes.NameIdentifier);
-                
+
                 if (claim is null)
                     return Results.BadRequest("User not found");
-                    
+
                 var userID = Guid.Parse(claim.Value);
                 var historyID = Guid.Parse(id);
 
@@ -47,5 +48,22 @@ public static class HistoryEndPoints
                     (true, _) => Results.Ok()
                 };
             }).RequireAuthorization();
+
+        app.MapGet("show/{id}", async (
+            string id,
+            HttpContext http,
+            [FromServices] ShowHistoryUseCase useCase
+        ) =>
+        {
+            var historyId = Guid.Parse(id);
+            var payload = new ShowHistoryPayload(historyId);
+
+            var result = await useCase.Do(payload);
+
+            if (result.IsSuccess)
+                return Result<ShowHistoryResponse>.Success(result.Data);
+
+            return Result<ShowHistoryResponse>.Fail("Error");
+        });
     }
 }

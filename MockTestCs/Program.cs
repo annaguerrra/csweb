@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Components.RenderTree;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using MockTestCs.Endpoints;
 using MockTestCs.Entities;
 using MockTestCs.Features.AddHistory;
 using MockTestCs.Features.AddToList;
@@ -11,6 +12,7 @@ using MockTestCs.Features.CreateUser;
 using MockTestCs.Features.DeleteFromList;
 using MockTestCs.Features.DeleteHistory;
 using MockTestCs.Features.Login;
+using MockTestCs.Features.ShowHistory;
 using MockTestCs.Services.JWT;
 using MockTestCs.Services.Password;
 
@@ -30,6 +32,7 @@ builder.Services.AddScoped<CreateListUseCase>();     // list endpoint
 builder.Services.AddScoped<DeleteFromListUseCase>(); // list endpoint
 builder.Services.AddScoped<DeleteHistoryUseCase>();  // history endpoint
 builder.Services.AddScoped<LoginUseCase>();          // login endpoint
+builder.Services.AddScoped<ShowHistoryUseCase>();    // history endpoint
 
 // Serviços: Singleton (mas poderiam ser transient) não armazenam estado interno entre chamadas, só recebem e transformam dados
 
@@ -62,6 +65,17 @@ builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.ConfigureHistory();
+app.ConfigureLoginEnpoints();
+app.ConfigureReadingListEndpoints();
+app.ConfigureUserEndpoints();
 
 app.Run();
  
