@@ -23,6 +23,7 @@ builder.Services.AddDbContext<MockTestCsDbContext>(
     opt => opt.UseSqlServer(strConnection)
 );
 
+
 // Use cases: Scoped (Mexem com DbContext): AddHistory, AddToList, CreateUserUseCase, DeleteFromList, DeleteHistory, Login, CreateList
 
 builder.Services.AddScoped<AddHistoryUseCase>();     // history enpoint
@@ -76,6 +77,9 @@ app.ConfigureHistory();
 app.ConfigureLoginEnpoints();
 app.ConfigureReadingListEndpoints();
 app.ConfigureUserEndpoints();
+
+app.MapGet("/", () => "API rodando ✅");
+
 
 app.Run();
  

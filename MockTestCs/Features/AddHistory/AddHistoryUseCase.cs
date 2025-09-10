@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using MockTestCs.Entities;
 
 namespace MockTestCs.Features.AddHistory;
@@ -8,10 +9,11 @@ public class AddHistoryUseCase(
 {
     public async Task<Result<AddHistoryResponse>> Do(AddHistoryPayload payload)
     {
-        var exist = await ctx.Histories.FindAsync(payload.Title);
-
-        if (exist is not null)
-            return Result<AddHistoryResponse>.Fail($"Already exists a history named '{payload.Title}'");
+        var user = await ctx.Users
+            .FindAsync(payload.UserID);
+        
+        if(user is null)
+            return Result<AddHistoryResponse>.Fail("User not found");
 
         var history = new History
         {
@@ -19,7 +21,7 @@ public class AddHistoryUseCase(
             Content = payload.Content
         };
 
-        ctx.Histories.Add(history);
+        user.Histories.Add(history);
         await ctx.SaveChangesAsync();
         
         return Result<AddHistoryResponse>.Success(
